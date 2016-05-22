@@ -1,9 +1,9 @@
 from math import sqrt
 from bisect import bisect_left
 def sieve(n):
-    primes = range(1,n)
+    primes = range(2,n)
     n_sqrt = sqrt(n)
-    i = 1
+    i = 0
     while primes[i] <= sqrt(n):
         p = primes[i]
         j = 2
