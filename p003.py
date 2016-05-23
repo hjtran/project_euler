@@ -1,7 +1,6 @@
 import sys
 from math import sqrt, ceil
 from euler_helpers import sieve
-# UNSOLVED
 def main(n):
     primes = sieve(int(ceil(sqrt(n))))
     prime_factors = set()
