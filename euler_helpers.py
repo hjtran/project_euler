@@ -42,4 +42,16 @@ def bin_search(a, x, lo=0, hi=None):
     pos = bisect_left(a,x,lo,hi)
     return(pos if pos != hi and a[pos] == x else -1)
 
+def prime_divs(x):
+    primes = opt_sieve(x)
+    pd = set() # prime divisors
+    d = x
+    while d not in primes:
+        for p in primes:
+            if d%p==0:
+                d = d/p
+                pd.add(p)
+                break
+    pd.add(d)
+    return pd
 
