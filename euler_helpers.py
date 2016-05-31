@@ -5,6 +5,7 @@ from bisect import bisect_left
 # Input: a number to calculate all primes up to
 # Output: a list of primes up to and including n
 def opt_sieve(n):
+    n = int(n)
     primes = [True]*n
     n_sqrt = sqrt(n)
     i = 2
@@ -38,16 +39,17 @@ def bin_search(a, x, lo=0, hi=None):
     return(pos if pos != hi and a[pos] == x else -1)
 
 # Finds the set of all prime divisors of x
-def prime_divs(x):
-    primes = opt_sieve(x)
-    pd = set() # prime divisors
-    d = x
+def prime_factors(n):
+    primes = opt_sieve(ceil(sqrt(n)))
+    d = n
+    pfs = []
     while d not in primes:
         for p in primes:
             if d%p==0:
-                d = d/p
-                pd.add(p)
+                pfs.append(p)
+                d /= p
                 break
-    pd.add(d)
-    return pd
-
+        else:
+            return [n]
+    pfs.append(d)
+    return pfs
