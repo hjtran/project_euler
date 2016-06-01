@@ -1,4 +1,4 @@
-from math import sqrt
+from math import sqrt,ceil
 from bisect import bisect_left
 
 # Optimized sieve helper function
@@ -50,6 +50,7 @@ def prime_factors(n):
                 d /= p
                 break
         else:
-            return [n]
+            pfs.append(d)
+            return pfs
     pfs.append(d)
     return pfs
