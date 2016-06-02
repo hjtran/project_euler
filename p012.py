@@ -1,21 +1,37 @@
 from euler_helpers import opt_sieve
 from math import ceil,sqrt
-trinum = 28
-i = 7
 
-prime_factors = []
-while len(prime_factors) < 500:
-    i += 1
-    trinum += i
-    primes = opt_sieve(int(ceil(sqrt(trinum))))
-    prime_factors = set()
-    prime_factors.add(1)
-    prime_factors.add(trinum)
+def primeFactors(n):
+    primes = opt_sieve(ceil(sqrt(n)))
+    d = n
+    pfs = []
+    while d not in primes:
+        for p in primes:
+            if d%p==0:
+                pfs.append(p)
+                d /= p
+                break
+        else:
+            return [n]
+    pfs.append(d)
+    return pfs
 
-    for prime in primes:
-        if trinum%prime==0:
-            prime_factors.add(prime)
-            prime_factors.add(trinum/prime)
-    print len(prime_factors)
+def numFactors(n):
+    pfs = sorted(primeFactors(n))
+    total = 2
+    count = 2
+    for idx in range(1,len(pfs)):
+        if pfs[idx-1]==pfs[idx]:
+            count += 1
+        else:
+            total *= count
+            count = 2
+    return total
+
+trinum = 1
+a = 2
+while numFactors(trinum) < 500:
+    trinum += a
+    a += 1
 
 print trinum
