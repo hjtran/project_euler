@@ -1,5 +1,6 @@
 from math import sqrt,ceil
 from bisect import bisect_left
+from time import time
 
 # Optimized sieve helper function
 # Input: a number to calculate all primes up to
@@ -7,16 +8,14 @@ from bisect import bisect_left
 def opt_sieve(n):
     n = int(n)
     primes = [True]*n
-    n_sqrt = sqrt(n)
-    i = 2
-    while i <= sqrt(n):
-        j = 2
-        while i*j <= n:
-            primes[i*j-1] = False
-            j+=1
-        i += 1
+    for i in range(4,n+1,2):
+        primes[i-1] = False
+    for i in range(3,int(ceil(sqrt(n))),2):
+        for j in range(2,int(ceil(float(n)/i))):
+            primes[j*i-1] = False
 
     return [i+1 for i in range(1,n) if primes[i]] 
+
 
 # Finds and returns the greatest common
 # denominator of a and b using the euclidean 
@@ -54,3 +53,15 @@ def prime_factors(n):
             return pfs
     pfs.append(d)
     return pfs
+
+# Sieve test to check optimizations don't break it
+def sieve_test():
+    num_primes = [25, 168, 78498]
+    return [len(opt_sieve(n)) for n in [100, 1000, 1000000]] == num_primes
+
+
+if __name__=='__main__':
+    if sieve_test():
+        print 'sieve test passed!'
+    else:
+        print 'sieve function broken...'
