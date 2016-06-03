@@ -16,7 +16,6 @@ def opt_sieve(n):
 
     return [i+1 for i in range(1,n) if primes[i]] 
 
-
 # Finds and returns the greatest common
 # denominator of a and b using the euclidean 
 # algorithm
@@ -59,6 +58,18 @@ def sieve_test():
     num_primes = [25, 168, 78498]
     return [len(opt_sieve(n)) for n in [100, 1000, 1000000]] == num_primes
 
+# Generates n numbers of (p)olygonal numbers. p is the 
+# num of sides of polygon (ie 3 = triangle, 4 = rectangle, etc
+def polygon_range(p,n):
+    p -= 2
+    if p < 0:
+        raise Exception('p must be greater than 2')
+    s = 0
+    arr = []
+    for i in range(1,p*n+1,p):
+        s += i
+        arr.append(s)
+    return arr
 
 if __name__=='__main__':
     if sieve_test():
