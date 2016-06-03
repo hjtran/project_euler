@@ -7,12 +7,14 @@ from time import time
 # Output: a list of primes up to and including n
 def opt_sieve(n):
     n = int(n)
+    sqrt_n = int(ceil(sqrt(n)))
     primes = [True]*n
     for i in range(4,n+1,2):
         primes[i-1] = False
-    for i in range(3,int(ceil(sqrt(n))),2):
-        for j in range(2,int(ceil(float(n)/i))):
-            primes[j*i-1] = False
+    for i in range(3,sqrt_n,2):
+        if primes[i-1]:
+            for j in range(2,int(ceil(float(n)/i))):
+                primes[j*i-1] = False
 
     return [i+1 for i in range(1,n) if primes[i]] 
 
@@ -72,6 +74,9 @@ def polygon_range(p,n):
     return arr
 
 if __name__=='__main__':
+    start = time()
+    opt_sieve(1e7)
+    print 'time elapsed: %.5f seconds' % (time()-start,)
     if sieve_test():
         print 'sieve test passed!'
     else:
