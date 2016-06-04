@@ -18,6 +18,11 @@ def opt_sieve(n):
 
     return [i+1 for i in range(1,n) if primes[i]] 
 
+# Sieve test to check optimizations don't break it
+def sieve_test():
+    num_primes = [25, 168, 78498]
+    return [len(opt_sieve(n)) for n in [100, 1000, 1000000]] == num_primes
+
 # Finds and returns the greatest common
 # denominator of a and b using the euclidean 
 # algorithm
@@ -55,11 +60,6 @@ def prime_factors(n):
     pfs.append(d)
     return pfs
 
-# Sieve test to check optimizations don't break it
-def sieve_test():
-    num_primes = [25, 168, 78498]
-    return [len(opt_sieve(n)) for n in [100, 1000, 1000000]] == num_primes
-
 # Generates n numbers of (p)olygonal numbers. p is the 
 # num of sides of polygon (ie 3 = triangle, 4 = rectangle, etc
 def polygon_range(p,n):
@@ -72,6 +72,49 @@ def polygon_range(p,n):
         s += i
         arr.append(s)
     return arr
+
+# Generates the prime factors of n
+def prime_factors(n):
+    if n == 0:
+        raise Exception('cant factorize 0')
+    d = n
+    pfs = []
+    while d%2 == 0:
+        pfs.append(2)
+        d /= 2
+    for i in range(3,int(ceil(sqrt(n)))+2):
+        if d%i == 0:
+            while d%i == 0:
+                pfs.append(i)
+                d /= i
+    if len(pfs)==0:
+        return [n]
+    else:
+        return pfs
+
+# Finds the number of factors of n
+def num_factors(n):
+    pfs = sorted(prime_factors(n))
+    total = 2
+    count = 2
+    for idx in range(1,len(pfs)):
+        if pfs[idx-1]==pfs[idx]:
+            count += 1
+        else:
+            total *= count
+            count = 2
+    return total
+
+# Finds the totient (phi) of n using Euler's
+# product formula
+def totient(n):
+    pfs = set(prime_factors(n))
+    prod = n
+    for p in pfs:
+        prod *= (1-1.0/p)
+    return prod
+
+
 
 if __name__=='__main__':
     start = time()

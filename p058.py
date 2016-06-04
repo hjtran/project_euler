@@ -18,6 +18,7 @@ while int(100*(num_primes / float(len(diags)))) > 9 or num_primes == 0:
     if diags[-1] > N:
         raise Exception('Not enough primes generated')
     print num_primes/len(diags), diags[-1]
+    #print diags[-1], prange(4,sl)[-1]
     
 
 print sl
