@@ -115,7 +115,6 @@ def totient(n):
     return prod
 
 
-
 if __name__=='__main__':
     start = time()
     opt_sieve(1e7)
