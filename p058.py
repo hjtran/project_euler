@@ -1,10 +1,28 @@
 from euler_helpers import opt_sieve, polygon_range as prange
+from math import sqrt
 from time import time
+
+def isPrime(x):
+    if x <= primes[-1]:
+        return x in prime_set
+    elif x % 2 == 0:
+        return False
+    else:
+        for p in primes:
+            if p > sqrt(x):
+                break
+            elif x%p == 0:
+                return False
+
+        return True
+
+
 start = time()
-N = 1e8
-primes = {}
-for p in opt_sieve(N):
-    primes[p] = True
+N = 1e7
+
+primes = opt_sieve(N)
+prime_set = set(primes)
+
 print 'primes generated'
 sl = 1 # sidelength
 diags = [1]
@@ -14,11 +32,8 @@ while int(100*(num_primes / float(len(diags)))) > 9 or num_primes == 0:
     sl += 2
     diff += 2
     diags.extend(range(diags[-1]+diff,diags[-1]+4*diff+1,diff))
-    num_primes = float(sum( [1 for x in diags if x in primes] ))
-    if diags[-1] > N:
-        raise Exception('Not enough primes generated')
+    num_primes += float(sum( [1 for x in diags[-4:-1] if isPrime(x)] ))
     print num_primes/len(diags), diags[-1]
-    #print diags[-1], prange(4,sl)[-1]
     
 
 print sl
