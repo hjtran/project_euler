@@ -118,8 +118,8 @@ def totient(n):
 if __name__=='__main__':
     start = time()
     opt_sieve(1e7)
-    print 'time elapsed: %.5f seconds' % (time()-start,)
+    print('time elapsed: %.5f seconds' % (time()-start,))
     if sieve_test():
-        print 'sieve test passed!'
+        print('sieve test passed!')
     else:
-        print 'sieve function broken...'
+        print('sieve function broken...')
