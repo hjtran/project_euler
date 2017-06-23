@@ -43,23 +43,6 @@ def bin_search(a, x, lo=0, hi=None):
     pos = bisect_left(a,x,lo,hi)
     return(pos if pos != hi and a[pos] == x else -1)
 
-# Finds the set of all prime divisors of x
-def prime_factors(n):
-    primes = opt_sieve(ceil(sqrt(n)))
-    d = n
-    pfs = []
-    while d not in primes:
-        for p in primes:
-            if d%p==0:
-                pfs.append(p)
-                d /= p
-                break
-        else:
-            pfs.append(d)
-            return pfs
-    pfs.append(d)
-    return pfs
-
 # Generates n numbers of (p)olygonal numbers. p is the 
 # num of sides of polygon (ie 3 = triangle, 4 = rectangle, etc
 def polygon_range(p,n):
